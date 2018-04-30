@@ -45,6 +45,9 @@ class ViewController: UIViewController {
     @IBAction func seeCard(_ sender: Any) {
         playerCards[0].isHighlighted = true
         playerScoreLabel.isHidden = false
+        if playerScore == 21{
+            playerBlackJack()
+        }
     }
     
     
@@ -88,8 +91,6 @@ class ViewController: UIViewController {
         if comTotalScore == 21{
             comScoreLabel.text = "\(comTotalScore)"
             comBlackJack()
-        }else if playerScore == 21{
-            playerBlackJack()
         }
     }
     
