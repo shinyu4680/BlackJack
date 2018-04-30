@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     var comCloseCard = ""
     var playerOpenedCard = ""
     var comOpenedCard = ""
+    var pCards = [String]()
+    var cCards = [String]()
     
     let distribution = GKShuffledDistribution(lowestValue: 0, highestValue: cards.count - 1)
     
@@ -37,6 +39,8 @@ class ViewController: UIViewController {
     
     var count = 2
     
+    let aceArray = ["♠︎A","♣︎A","♥︎A","♦︎A"]
+    
     // MARK: 顯示蓋牌
     @IBAction func closeCard(_ sender: Any){
         playerCards[0].isHighlighted = false
@@ -45,7 +49,7 @@ class ViewController: UIViewController {
     @IBAction func seeCard(_ sender: Any) {
         playerCards[0].isHighlighted = true
         playerScoreLabel.isHidden = false
-        if playerScore == 21{
+        if playerScore == 21 && pCards.count <= 2{
             playerBlackJack()
         }
     }
@@ -58,6 +62,9 @@ class ViewController: UIViewController {
         comCloseCard = cards[distribution.nextInt()]
         comOpenedCard = cards[distribution.nextInt()]
         
+        pCards += ["\(playerCloseCard)", "\(playerOpenedCard)"]
+        cCards += ["\(comCloseCard)", "\(comOpenedCard)"]
+        
         comCards[0].isHidden = false
         playerCards[0].image = UIImage(named: "back")
         playerCards[0].highlightedImage = UIImage(named: playerCloseCard)
@@ -67,31 +74,30 @@ class ViewController: UIViewController {
         comCards[1].image = UIImage(named: comOpenedCard)
         comCards[1].isHidden = false
         
-        playerScore += scoreCal(card: playerOpenedCard, scoreSource: playerScore)
-        playerScore += scoreCal(card: playerCloseCard, scoreSource: playerScore)
+        playerScore += scoreCal(card: playerOpenedCard)
+        playerScore += scoreCal(card: playerCloseCard)
         if (playerOpenedCard.contains("A") || playerCloseCard.contains("A")) && playerScore > 21{
                 playerScore -= 10
         }
         
         playerScoreLabel.text = "\(playerScore)"
         
-        comScore += scoreCal(card: comOpenedCard, scoreSource: comScore)
+        comScore += scoreCal(card: comOpenedCard)
         comScoreLabel.text = "\(comScore)"
         comScoreLabel.isHidden = false
         
         dealButton.isEnabled = false
         hitButton.isEnabled = true
-        openButton.isEnabled = true
+        if playerScore >= 15{
+            openButton.isEnabled = true
+        }
         giveUpButton.isEnabled = true
         
-        comTotalScore = comScore + scoreCal(card: comCloseCard, scoreSource: comTotalScore)
+        comTotalScore = comScore + scoreCal(card: comCloseCard)
         if (comCloseCard.contains("A") || comOpenedCard.contains("A")) && comTotalScore > 21{
             comTotalScore -= 10
         }
-        if comTotalScore == 21{
-            comScoreLabel.text = "\(comTotalScore)"
-            comBlackJack()
-        }
+        
     }
     
     // MARK: 加牌
@@ -100,18 +106,29 @@ class ViewController: UIViewController {
         addCard = cards[distribution.nextInt()]
         playerCards[count].image = UIImage(named: addCard)
         playerCards[count].isHidden = false
+        pCards += ["\(addCard)"]
         
-        playerScore += scoreCal(card: addCard, scoreSource: playerScore)
-        /*
-        if addCard.contains("A") && playerScore > 21{
+        playerScore += scoreCal(card: addCard)
+        for pCard in pCards{
+            if pCard.contains("A") && playerScore > 21{
                 playerScore -= 10
-        }*/
+                pCards = pCards.filter({(card : String) -> Bool in return !card.contains("A")})
+            }
+        }
+        
         playerScoreLabel.text = "\(playerScore)"
         
-        count += 1
-        if count == 5 && playerScore <= 21{
-            fiveCardTrick()
+        if playerScore >= 15{
+            openButton.isEnabled = true
         }
+        
+        count += 1
+        if (count == 5 && playerScore <= 21) && !(comTotalScore == 21){
+            fiveCardTrick()
+        }else if (count == 5 && playerScore <= 21) && (comTotalScore == 21){
+            comBlackJack()
+        }
+        
         if playerScore > 21{
             bust()
         }
@@ -123,21 +140,32 @@ class ViewController: UIViewController {
         comCards[0].image = UIImage(named: comCloseCard)
         comScoreLabel.text = "\(comTotalScore)"
         
+        if comTotalScore == 21 && cCards.count <= 2{
+            comScoreLabel.text = "\(comTotalScore)"
+            comBlackJack()
+        }
+        
         count = 2
         var comAddCard = ""
-        while comTotalScore < 16{
+        while comTotalScore < 17{
             comAddCard = cards[distribution.nextInt()]
             comCards[count].image = UIImage(named: comAddCard)
             comCards[count].isHidden = false
-            comTotalScore += scoreCal(card: comAddCard, scoreSource: comTotalScore)
-            if comAddCard.contains("A") && comTotalScore > 21{
-                comTotalScore -= 10
+            cCards += ["\(comAddCard)"]
+            comTotalScore += scoreCal(card: comAddCard)
+            for cCard in cCards{
+                if cCard.contains("A") && comTotalScore > 21{
+                    comTotalScore -= 10
+                    cCards = cCards.filter({(card : String) -> Bool in return !card.contains("A")})
+                }
             }
             comScoreLabel.text = "\(comTotalScore)"
             count += 1
         }
         
-        if comTotalScore > 21 || playerScore > comTotalScore{
+        if playerScore == 21 && pCards.count <= 2{
+            playerBlackJack()
+        }else if comTotalScore > 21 || playerScore > comTotalScore{
             win()
         }else if comTotalScore > playerScore{
             lose()
@@ -157,7 +185,7 @@ class ViewController: UIViewController {
     
     // MARK: 下一輪(參數歸零重置)
     func nextRound () {
-        if playerChip == 0 {
+        if playerChip <= 0 {
             performSegue(withIdentifier: "gameOverSegue", sender: nil)
         }
         
@@ -181,6 +209,8 @@ class ViewController: UIViewController {
         comScoreLabel.isHidden = true
         playerScoreLabel.text = "0"
         playerScoreLabel.isHidden = true
+        pCards.removeAll()
+        cCards.removeAll()
         
         dealButton.isEnabled = true
         hitButton.isEnabled = false
@@ -253,7 +283,7 @@ class ViewController: UIViewController {
     
     func comBlackJack () {
         comCards[0].image = UIImage(named: comCloseCard)
-        let controller = UIAlertController(title: "Black Jack!", message: "Lost 200!!! Score: \(playerScore)", preferredStyle: UIAlertControllerStyle.alert)
+        let controller = UIAlertController(title: "AI Black Jack!", message: "Lost 200!!! Score: \(playerScore)", preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: okHandler)
         controller.addAction(action)
         show(controller, sender: nil)
@@ -262,14 +292,10 @@ class ViewController: UIViewController {
     
     
     //牌面轉換分數
-    func scoreCal (card: String, scoreSource: Int) -> Int {
+    func scoreCal (card: String) -> Int {
         var score = 0
         if card.contains("A") {
-            if scoreSource < 21{
-                score = 11
-            }else if scoreSource > 21{
-                score = 1
-            }
+            score = 11
         } else if card.contains("2") {
             score = 2
         } else if card.contains("3") {
