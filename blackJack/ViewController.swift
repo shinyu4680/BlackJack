@@ -39,8 +39,6 @@ class ViewController: UIViewController {
     
     var count = 2
     
-    let aceArray = ["♠︎A","♣︎A","♥︎A","♦︎A"]
-    
     // MARK: 顯示蓋牌
     @IBAction func closeCard(_ sender: Any){
         playerCards[0].isHighlighted = false
@@ -147,7 +145,7 @@ class ViewController: UIViewController {
         
         count = 2
         var comAddCard = ""
-        while comTotalScore < 17{
+        while comTotalScore < 17 && count < 6{
             comAddCard = cards[distribution.nextInt()]
             comCards[count].image = UIImage(named: comAddCard)
             comCards[count].isHidden = false
