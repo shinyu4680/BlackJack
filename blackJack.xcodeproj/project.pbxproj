@@ -14,6 +14,7 @@
 		0AEB617B209027E500A868E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AEB617A209027E500A868E4 /* Assets.xcassets */; };
 		0AEB617E209027E500A868E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AEB617C209027E500A868E4 /* LaunchScreen.storyboard */; };
 		0AEB61862091D53B00A868E4 /* cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB61852091D53B00A868E4 /* cards.swift */; };
+		0AF6B79C20984A1D00D61CAE /* Game_Over.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0AF6B79B20984A1C00D61CAE /* Game_Over.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0AEB617D209027E500A868E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AEB617F209027E500A868E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AEB61852091D53B00A868E4 /* cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cards.swift; sourceTree = "<group>"; };
+		0AF6B79B20984A1C00D61CAE /* Game_Over.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Game_Over.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				0AEB61852091D53B00A868E4 /* cards.swift */,
 				0AEB617A209027E500A868E4 /* Assets.xcassets */,
 				0AEB617C209027E500A868E4 /* LaunchScreen.storyboard */,
+				0AF6B79B20984A1C00D61CAE /* Game_Over.mp3 */,
 				0AEB617F209027E500A868E4 /* Info.plist */,
 			);
 			path = blackJack;
@@ -128,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF6B79C20984A1D00D61CAE /* Game_Over.mp3 in Resources */,
 				0AEB617E209027E500A868E4 /* LaunchScreen.storyboard in Resources */,
 				0AEB617B209027E500A868E4 /* Assets.xcassets in Resources */,
 				0AEB6179209027E000A868E4 /* Main.storyboard in Resources */,
