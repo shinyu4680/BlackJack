@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -74,7 +73,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8Wd-Hr-tEn">
-                                <rect key="frame" x="90" y="339" width="235" height="30"/>
+                                <rect key="frame" x="90" y="353" width="235" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oY0-Hs-YA9" userLabel="Hit">
@@ -165,20 +164,45 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-ik-QcD" userLabel="MinusBet">
+                                <rect key="frame" x="135" y="304" width="30" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="⬇️">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="minusBetBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YIN-8e-Pbf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6E-Xi-flz" userLabel="PlusBet">
+                                <rect key="frame" x="248" y="304" width="30" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="⬆️">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="plusBetBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1x1-yj-mUD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.10945452004671097" green="0.38879182934761047" blue="0.081466741859912872" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="alertTextLabel" destination="gdp-hs-vmP" id="Rjc-Px-jTu"/>
+                        <outlet property="betLabel" destination="7Zp-wp-21u" id="izc-q9-xVt"/>
                         <outlet property="comScoreLabel" destination="gTy-X9-QSX" id="tg9-W2-od3"/>
                         <outlet property="dealButton" destination="NIb-j3-Fd2" id="bwD-5J-cHP"/>
                         <outlet property="giveUpButton" destination="Y9N-jv-ITY" id="o4i-BS-NKs"/>
                         <outlet property="hitButton" destination="oY0-Hs-YA9" id="kwO-bF-Q07"/>
+                        <outlet property="minusBetBtn" destination="qkb-ik-QcD" id="RYs-7y-P1h"/>
                         <outlet property="openButton" destination="HJS-Fj-SgC" id="aL9-nw-DhS"/>
                         <outlet property="openFoldCardButton" destination="md9-Kr-SPe" id="8mh-bb-ACL"/>
                         <outlet property="playerChipLabel" destination="D7f-tS-B94" id="bmL-tG-xMx"/>
                         <outlet property="playerScoreLabel" destination="OZo-7f-gFg" id="mdB-7b-iTe"/>
+                        <outlet property="plusBetBtn" destination="w6E-Xi-flz" id="eoJ-AX-nIC"/>
                         <outletCollection property="comCards" destination="AZr-s6-2PL" collectionClass="NSMutableArray" id="Xta-Z6-khx"/>
                         <outletCollection property="comCards" destination="Fw1-dZ-vMQ" collectionClass="NSMutableArray" id="Yk7-Vr-WxA"/>
                         <outletCollection property="comCards" destination="UuY-RL-xUG" collectionClass="NSMutableArray" id="vct-K1-QCp"/>
